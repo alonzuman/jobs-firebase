@@ -28,7 +28,7 @@ const SignUp = () => {
         const res = await app.auth().createUserWithEmailAndPassword(email, password)
         // TODO set redux state to is auth and set token
         localStorage.setItem('token', res.user.refreshToken)
-        await db.collection('users').add({ user })
+        await db.collection('users').doc(res.user.uid).set({ user })
         history.push('/')
       } catch (error) {
         // TODO set alert

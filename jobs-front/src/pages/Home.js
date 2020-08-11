@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import app from '../firebase'
+import app, { db } from '../firebase'
 import { useHistory } from 'react-router-dom'
 
 // Components
@@ -11,7 +11,7 @@ import { useDispatch } from 'react-redux'
 import { signOut } from '../actions/auth'
 
 // Mui
-import { Button, IconButton } from '@material-ui/core'
+import { Button, IconButton, Box, Typography } from '@material-ui/core'
 
 // Icons
 import AddIcon from '@material-ui/icons/Add'
@@ -34,14 +34,18 @@ const Home = () => {
     right: '1rem'
   }
 
-  const handleSubmit = e => {
-    e.preventDefault()
-    console.log('posting a new job')
+  const boxStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 
   return (
     <>
       <TopMenu onSignout={handleSignout} />
+      <Box style={boxStyle}>
+        <Typography variant='h1'>Hello</Typography>
+      </Box>
       <PostJob open={posting} onClose={() => setPosting(false)} />
       <IconButton onClick={() => setPosting(true)} style={addButtonStyle}>
         <AddIcon />
