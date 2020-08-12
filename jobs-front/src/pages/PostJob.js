@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Dialog, TextField, Button, DialogTitle, CircularProgress, IconButton } from '@material-ui/core'
+import { Dialog, TextField, Button, DialogTitle, CircularProgress, IconButton, CardHeader, Typography } from '@material-ui/core'
+import CloseIcon from '@material-ui/icons/Close';
 import { postJob } from '../firebase'
 
 const PostJob = ({ open, onClose }) => {
@@ -51,10 +52,21 @@ const PostJob = ({ open, onClose }) => {
     height: 24
   }
 
+  const headerStyle = {
+    padding: '1rem',
+    display: 'flex'
+  }
+
+  const titleStyle = {
+    padding: '.5rem 1rem'
+  }
+
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Post a new job</DialogTitle>
-      <IconButton>hi</IconButton>
+      <div style={headerStyle}>
+        <DialogTitle style={titleStyle}>Post a new job</DialogTitle>
+        <IconButton onClick={onClose}><CloseIcon /></IconButton>
+      </div>
       <form onSubmit={handleSubmit} style={formStyle} noValidate>
         <TextField onChange={e => setTitle(e.target.value)} value={title} style={inputStyle} label='Company name' /><br />
         <TextField onChange={e => setDescription(e.target.value)} value={description} style={inputStyle} label='Description' /><br />
