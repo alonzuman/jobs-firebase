@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Dialog, TextField, Button, DialogTitle, CircularProgress } from '@material-ui/core'
+import { Dialog, TextField, Button, DialogTitle, CircularProgress, IconButton } from '@material-ui/core'
 import { postJob } from '../firebase'
 
 const PostJob = ({ open, onClose }) => {
@@ -54,6 +54,7 @@ const PostJob = ({ open, onClose }) => {
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Post a new job</DialogTitle>
+      <IconButton>hi</IconButton>
       <form onSubmit={handleSubmit} style={formStyle} noValidate>
         <TextField onChange={e => setTitle(e.target.value)} value={title} style={inputStyle} label='Company name' /><br />
         <TextField onChange={e => setDescription(e.target.value)} value={description} style={inputStyle} label='Description' /><br />
