@@ -6,10 +6,6 @@ import { useHistory } from 'react-router-dom'
 import PostJob from './PostJob'
 import TopMenu from '../components/TopMenu'
 
-// Redux
-import { useDispatch } from 'react-redux'
-import { signOut } from '../actions/auth'
-
 // Mui
 import { Button, IconButton, Box, Typography } from '@material-ui/core'
 
@@ -18,13 +14,11 @@ import AddIcon from '@material-ui/icons/Add'
 
 const Home = () => {
   const [posting, setPosting] = useState(false)
-  const dispatch = useDispatch()
   const history = useHistory()
 
   const handleSignout = () => {
     localStorage.removeItem('token')
     app.auth().signOut()
-    dispatch(signOut())
     history.push('/signin')
   }
 

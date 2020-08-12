@@ -14,5 +14,24 @@ const app = firebase.initializeApp({
 })
 
 export const db = firebase.firestore()
-
 export default app;
+
+export const signIn = async (user) => {
+  const { email, password } = user
+  await app.auth().signInWithEmailAndPassword(email, password)
+}
+
+export const signUp = async (user) => {
+  const { email, password, firstName, lastName } = user
+  const res = await app.auth().createUserWithEmailAndPassword(email, password)
+  await db.collection('users').doc(res.user.uid).set({
+    email,
+    firstName,
+    lastName,
+    role: 1
+  })
+}
+
+export const signOut = () => {
+  app.auth().signOut()
+}

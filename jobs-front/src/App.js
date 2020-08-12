@@ -1,12 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-
-// Redux
-import { useDispatch, useSelector } from 'react-redux'
-
-// Auth
-import { setUser, signOut } from './actions'
+import { AuthProvider } from './contexts/Auth';
 
 // Mui
 import { Paper, Container, ThemeProvider } from '@material-ui/core'
@@ -25,47 +20,33 @@ import theme from './theme';
 import PrivateRoute from './components/PrivateRoute';
 
 const App = () => {
-  const localTheme = useSelector(state => state.theme.theme)
-  const dispatch = useDispatch()
-
-  // TODO use effect that refreshes the colors on change of theme
-
   const containerStyle = {
-    minHeight: '100vh',
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
     padding: '1rem 0',
     borderRadius: 0
   }
 
-  const validateUser = app.auth().onAuthStateChanged(user => {
-    if (user) {
-      // Set redux auth to is signed in
-      localStorage.setItem('token', user.refreshToken)
-      dispatch(setUser(user))
-    } else {
-      dispatch(signOut)
-      console.log('no user signed in')
-    }
-  })
-
-  useEffect(() => { validateUser() }, [])
-
   return (
     // TODO set theme toggle
     <ThemeProvider theme={theme}>
-      <Paper style={containerStyle}>
-        <Router>
-          <Switch>
-            <Container>
-              <PrivateRoute exact path='/' component={Home} />
-              <PrivateRoute exact path='/post-job' component={PostJob} />
-              <PrivateRoute exact path='/me' component={Me} />
-              <PrivateRoute exact path='/me/edit' component={EditProfile} />
-              <Route path='/signin' component={SignIn} />
-              <Route path='/signup' component={SignUp} />
-            </Container>
-          </Switch>
-        </Router>
-      </Paper>
+      <AuthProvider>
+        <Paper style={containerStyle}>
+          <Router>
+            <Switch>
+              <Container>
+                <PrivateRoute exact path='/' component={Home} />
+                <PrivateRoute exact path='/post-job' component={PostJob} />
+                <PrivateRoute exact path='/me' component={Me} />
+                <PrivateRoute exact path='/me/edit' component={EditProfile} />
+                <Route path='/signin' component={SignIn} />
+                <Route path='/signup' component={SignUp} />
+              </Container>
+            </Switch>
+          </Router>
+        </Paper>
+      </AuthProvider>
     </ThemeProvider>
   );
 }

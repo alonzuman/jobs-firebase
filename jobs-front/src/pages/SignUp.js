@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { TextField, Button, Typography } from '@material-ui/core'
-import app from '../firebase'
-import { useHistory, Link, Redirect } from 'react-router-dom'
-import { db } from '../firebase'
+import { signUp } from '../firebase'
+import { Link, Redirect, withRouter } from 'react-router-dom'
+import { AuthContext } from '../contexts/Auth'
 
 const SignUp = () => {
   const [email, setEmail] = useState('')
@@ -10,30 +10,22 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
-  const history = useHistory()
+
+  const { currentUser } = useContext(AuthContext)
 
   const handleSubmit = async e => {
     e.preventDefault()
-    if (password !== confirmPassword) {
-      // TODO set validation for weak password
-    } else {
-      const user = {
-        email,
-        firstName,
-        lastName,
-        role: 1
-      }
-
+    const user = { email, password, firstName, lastName}
+    if (password === confirmPassword) {
       try {
-        const res = await app.auth().createUserWithEmailAndPassword(email, password)
-        // TODO set redux state to is auth and set token
-        localStorage.setItem('token', res.user.refreshToken)
-        await db.collection('users').doc(res.user.uid).set({ user })
-        history.push('/')
+        signUp(user)
       } catch (error) {
-        // TODO set alert
         console.log(error)
+        // TODO set alert
       }
+    } else {
+      // TODO set alert
+      console.log('passwords dont match')
     }
   }
 
@@ -44,6 +36,10 @@ const SignUp = () => {
   const inputStyle = {
     width: '100%',
     margin: '.5rem 0'
+  }
+
+  if (currentUser) {
+    return <Redirect to='/' />
   }
 
   return (
@@ -57,9 +53,9 @@ const SignUp = () => {
       <TextField style={inputStyle} label={`Last Name`} value={lastName} onChange={e => setLastName(e.target.value)} /><br/>
       <Button color='primary' variant='contained' onClick={handleSubmit}>Submit</Button>
     </form>
-    <Typography variant='p'>Not signed up? <Link to='/signin'>Sign in</Link></Typography>
+    <Typography variant='body1'>Not signed up? <Link to='/signin'>Sign in</Link></Typography>
     </>
   )
 }
 
-export default SignUp
+export default withRouter(SignUp)

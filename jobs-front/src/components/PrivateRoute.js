@@ -1,13 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Redirect, Route } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { AuthContext } from '../contexts/Auth'
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   // TODO validate token ffs how to do it?
-  const { token } = useSelector(state => state.auth)
+  const { currentUser } = useContext(AuthContext)
 
   return (
-    <Route {...rest} render={props => token ?
+    <Route {...rest} render={props => !!currentUser ?
       <Component  {...props} />:
       <Redirect to='/signin' />}
     />

@@ -3,12 +3,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import theme from '../theme'
 import { Box, Avatar, MenuItem, Menu, Switch } from '@material-ui/core'
 import { useState } from 'react';
-import { toggleTheme } from '../actions'
-import { useDispatch, useSelector } from 'react-redux';
+import { signOut } from '../firebase';
 
 const TopMenu = ({ onSignout }) => {
-  const dispatch = useDispatch()
-  const localTheme = useSelector(state => state.theme.theme)
   const [anchorEl, setAnchorEl] = useState(null)
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -42,10 +39,6 @@ const TopMenu = ({ onSignout }) => {
     setAnchorEl(null)
   }
 
-  const handleThemeToggle = () => {
-    dispatch(toggleTheme())
-  }
-
   return (
     <>
     <Box onClick={handleClick} style={boxStyle} clickable>
@@ -54,9 +47,8 @@ const TopMenu = ({ onSignout }) => {
     </Box>
     <Menu anchorEl={anchorEl} open={menuOpen} onClose={handleClose}>
       <MenuItem>Edit Profile</MenuItem>
-      <MenuItem onClick={() => onSignout()}>Sign out</MenuItem>
+      <MenuItem onClick={() => signOut()}>Sign out</MenuItem>
     </Menu>
-    <Switch checked={localTheme === 'dark'} onChange={handleThemeToggle} color='default'/>
     </>
   )
 }
