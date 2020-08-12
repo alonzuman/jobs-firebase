@@ -23,14 +23,9 @@ export const signIn = async (user) => {
 }
 
 export const signUp = async (user) => {
-  const { email, password, firstName, lastName } = user
+  const { email, password } = user
   const res = await app.auth().createUserWithEmailAndPassword(email, password)
-  await db.collection('users').doc(res.user.uid).set({
-    email,
-    firstName,
-    lastName,
-    role: 1
-  })
+  await db.collection('users').doc(res.user.uid).set({...user, role: 1})
 }
 
 export const signOut = () => {
@@ -57,21 +52,7 @@ export const getJobs = async (job) => {
 }
 
 export const postJob = (job) => {
-  const {
-    title,
-    description,
-    location,
-    contact,
-    requirements
-  } = job
-
-  db.collection('jobs').add({
-    title,
-    description,
-    location,
-    contact,
-    requirements
-  })
+  db.collection('jobs').add(job)
 }
 
 export const deleteJob = (id) => {

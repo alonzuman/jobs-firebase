@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { Dialog, Typography, TextField, Button, DialogTitle, CircularProgress } from '@material-ui/core'
-import { db, postJob } from '../firebase'
+import { Dialog, TextField, Button, DialogTitle, CircularProgress } from '@material-ui/core'
+import { postJob } from '../firebase'
 
 const PostJob = ({ open, onClose }) => {
   const [title, setTitle] = useState('')
@@ -24,6 +24,11 @@ const PostJob = ({ open, onClose }) => {
       postJob(job)
       // TODO set alert
       setLoading(false)
+      setTitle('')
+      setDescription('')
+      setLocation('')
+      setContact('')
+      setRequirements([])
       onClose(true)
     } catch (error) {
       setLoading(false)

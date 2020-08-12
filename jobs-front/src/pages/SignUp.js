@@ -10,6 +10,8 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
+  const [bio, setBio] = useState('')
+  const [skills, setSkills] = useState([])
   const [loading, setLoading] = useState(false)
 
   const { currentUser } = useContext(AuthContext)
@@ -17,7 +19,14 @@ const SignUp = () => {
   const handleSubmit = async e => {
     e.preventDefault()
     setLoading(true)
-    const user = { email, password, firstName, lastName}
+    const user = {
+      email,
+      password,
+      firstName,
+      lastName,
+      bio,
+      skills
+    }
     if (password === confirmPassword) {
       try {
         signUp(user)
@@ -60,6 +69,8 @@ const SignUp = () => {
       <TextField style={inputStyle} type='password' label={`Confirm Password`} value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} /><br/>
       <TextField style={inputStyle} label={`First Name`} value={firstName} onChange={e => setFirstName(e.target.value)} /><br/>
       <TextField style={inputStyle} label={`Last Name`} value={lastName} onChange={e => setLastName(e.target.value)} /><br/>
+      <TextField style={inputStyle} label={`Bio`} value={bio} onChange={e => setBio(e.target.value)} /><br/>
+      <TextField style={inputStyle} label={`Skills`} value={skills} onChange={e => setSkills(e.target.value)} /><br/>
       <Button color='primary' variant='contained' onClick={handleSubmit}>{loading ? <CircularProgress style={spinnerStyle}/> : 'Submit'}</Button>
     </form>
     <Typography variant='body1'>Not signed up? <Link to='/signin'>Sign in</Link></Typography>

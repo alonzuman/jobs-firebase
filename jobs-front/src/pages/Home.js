@@ -11,6 +11,7 @@ import { Button, IconButton, Box, Typography, Paper, Tabs, Tab } from '@material
 // Icons
 import AddIcon from '@material-ui/icons/Add'
 import UsersList from '../components/UsersList'
+import theme from '../theme'
 
 const Home = () => {
   const [posting, setPosting] = useState(false)
@@ -19,7 +20,8 @@ const Home = () => {
   const addButtonStyle = {
     position: 'fixed',
     bottom: '1rem',
-    right: '1rem'
+    right: '1rem',
+    backgroundColor: theme.palette.primary.main
   }
 
   const handleChange = (tab) => setTabValue(tab)

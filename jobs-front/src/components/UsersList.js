@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { getUsers } from '../firebase'
-import { CircularProgress } from '@material-ui/core'
+import { CircularProgress, Box } from '@material-ui/core'
 import UserCard from './UserCard'
 
 const UsersList = () => {
@@ -17,10 +17,10 @@ const UsersList = () => {
   useEffect(() => { fetchUsers() }, [])
 
   return (
-    <div>
+    <Box style={{overflow: 'scroll'}}>
       {loading && <CircularProgress />}
       {!loading && users.map((user, index) => <UserCard key={index} user={user} />)}
-    </div>
+    </Box>
   )
 }
 
