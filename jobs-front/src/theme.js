@@ -1,8 +1,9 @@
-const { createMuiTheme } = require("@material-ui/core");
+import { createMuiTheme } from '@material-ui/core/styles';
+
 
 const theme = createMuiTheme({
   palette: {
-    type: localStorage.getItem('theme'),
+    type: 'dark',
     primary: {
       main: '#7e57c2',
     },
