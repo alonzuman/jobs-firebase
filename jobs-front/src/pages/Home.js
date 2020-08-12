@@ -21,7 +21,6 @@ const Home = () => {
     position: 'fixed',
     bottom: '1rem',
     right: '1rem',
-    padding: '1.3rem',
     zIndex: 999,
     backgroundColor: theme.palette.primary.main
   }
