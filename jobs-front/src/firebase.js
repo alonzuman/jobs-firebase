@@ -16,6 +16,7 @@ const app = firebase.initializeApp({
 export const db = firebase.firestore()
 export default app;
 
+// AUTH ACTIONS
 export const signIn = async (user) => {
   const { email, password } = user
   await app.auth().signInWithEmailAndPassword(email, password)
@@ -34,4 +35,45 @@ export const signUp = async (user) => {
 
 export const signOut = () => {
   app.auth().signOut()
+}
+
+export const editUser = (user) => {
+
+}
+
+export const getUsers = async () => {
+  const snapshot = await db.collection('users').get()
+  let users = []
+  snapshot.forEach(doc => users.push(doc.data()))
+  return users
+}
+
+// JOB ACTIONS
+export const getJobs = async (job) => {
+  const snapshot = await db.collection('jobs').get()
+  let jobs = []
+  snapshot.forEach(doc => jobs.push(doc.data()))
+  return jobs
+}
+
+export const postJob = (job) => {
+  const {
+    title,
+    description,
+    location,
+    contact,
+    requirements
+  } = job
+
+  db.collection('jobs').add({
+    title,
+    description,
+    location,
+    contact,
+    requirements
+  })
+}
+
+export const deleteJob = (id) => {
+  db.collection('jobs').doc(id).delete()
 }

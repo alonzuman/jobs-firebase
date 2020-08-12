@@ -1,26 +1,20 @@
-import React, { useState } from 'react'
-import app, { db } from '../firebase'
-import { useHistory } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import JobsList from '../components/JobsList'
 
 // Components
 import PostJob from './PostJob'
 import TopMenu from '../components/TopMenu'
 
 // Mui
-import { Button, IconButton, Box, Typography } from '@material-ui/core'
+import { Button, IconButton, Box, Typography, Paper, Tabs, Tab } from '@material-ui/core'
 
 // Icons
 import AddIcon from '@material-ui/icons/Add'
+import UsersList from '../components/UsersList'
 
 const Home = () => {
   const [posting, setPosting] = useState(false)
-  const history = useHistory()
-
-  const handleSignout = () => {
-    localStorage.removeItem('token')
-    app.auth().signOut()
-    history.push('/signin')
-  }
+  const [tabValue, setTabValue] = useState(0)
 
   const addButtonStyle = {
     position: 'fixed',
@@ -28,18 +22,17 @@ const Home = () => {
     right: '1rem'
   }
 
-  const boxStyle = {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
+  const handleChange = (tab) => setTabValue(tab)
 
   return (
     <>
-      <TopMenu onSignout={handleSignout} />
-      <Box style={boxStyle}>
-        <Typography variant='h1'>Hello</Typography>
-      </Box>
+      <TopMenu />
+        <Tabs centered variant='fullWidth' value={tabValue} indicatorColor="primary" textColor="primary" onChange={handleChange}>
+          <Tab onClick={() => setTabValue(0)} label="Jobs" />
+          <Tab onClick={() => setTabValue(1)} label="Members" />
+        </Tabs>
+      {tabValue === 0 && <JobsList posting={posting} />}
+      {tabValue === 1 && <UsersList />}
       <PostJob open={posting} onClose={() => setPosting(false)} />
       <IconButton onClick={() => setPosting(true)} style={addButtonStyle}>
         <AddIcon />
