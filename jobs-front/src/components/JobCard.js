@@ -6,8 +6,8 @@ const JobCard = ({ job }) => {
   <Grid xs={12} md={6} item>
       <Card className='card'>
       <CardHeader
-        avatar={<Avatar src={job.avatar || ''} alt={job.firstName} />}
-        title={job.firstName}
+        avatar={<Avatar src={job.imageUrl || ''} alt={job.title} />}
+        title={job.title}
       />
       <CardContent>
         <Typography variant='body2'>

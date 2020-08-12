@@ -4,7 +4,7 @@ import { Card, CardHeader, Avatar, CardContent, Typography, CardActions, Button,
 const UserCard = ({ user }) => {
   return (
     <Grid xs={12} md={6} item>
-      <Card className='card'>
+      <Card>
         <CardHeader
           avatar={<Avatar src={user.avatar || ''} alt={user.firstName} />}
           title={user.firstName}

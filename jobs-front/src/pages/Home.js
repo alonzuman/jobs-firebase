@@ -6,7 +6,7 @@ import PostJob from './PostJob'
 import TopMenu from '../components/TopMenu'
 
 // Mui
-import { Button, IconButton, Box, Typography, Paper, Tabs, Tab } from '@material-ui/core'
+import { Button, IconButton, Box, Typography, Paper, Tabs, Tab, Fab } from '@material-ui/core'
 
 // Icons
 import AddIcon from '@material-ui/icons/Add'
@@ -22,6 +22,7 @@ const Home = () => {
     bottom: '1rem',
     right: '1rem',
     padding: '1.3rem',
+    zIndex: 999,
     backgroundColor: theme.palette.primary.main
   }
 
@@ -30,6 +31,9 @@ const Home = () => {
   return (
     <>
       <TopMenu />
+      <Fab onClick={() => setPosting(true)} style={addButtonStyle} color="primary" aria-label="add">
+        <AddIcon />
+      </Fab>
         <Tabs centered variant='fullWidth' value={tabValue} indicatorColor="primary" textColor="primary" onChange={handleChange}>
           <Tab onClick={() => setTabValue(0)} label="Jobs" />
           <Tab onClick={() => setTabValue(1)} label="Members" />
@@ -37,9 +41,6 @@ const Home = () => {
       {tabValue === 0 && <JobsList posting={posting} />}
       {tabValue === 1 && <UsersList />}
       <PostJob open={posting} onClose={() => setPosting(false)} />
-      <IconButton onClick={() => setPosting(true)} style={addButtonStyle}>
-        <AddIcon />
-      </IconButton>
     </>
   )
 }

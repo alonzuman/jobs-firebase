@@ -2,8 +2,14 @@ import React, { useState } from 'react'
 import { Dialog, TextField, Button, DialogTitle, CircularProgress, IconButton, CardHeader, Typography } from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close';
 import { postJob } from '../firebase'
+import FileUploader from '../components/FileUploader';
+import { storage } from '../firebase';
+import CircularProgressWithLabel from '../components/CircularProgressWithLabel';
 
 const PostJob = ({ open, onClose }) => {
+  const [isUploading, setIsUploading] = useState(false)
+  const [progress, setProgress] = useState(0)
+  const [imageUrl, setImageUrl] = useState('')
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [location, setLocation] = useState('')
@@ -18,7 +24,8 @@ const PostJob = ({ open, onClose }) => {
       description,
       location,
       contact,
-      requirements
+      requirements,
+      imageUrl
     }
     setLoading(true)
     try {
@@ -45,6 +52,8 @@ const PostJob = ({ open, onClose }) => {
         <IconButton onClick={onClose}><CloseIcon /></IconButton>
       </div>
       <form onSubmit={handleSubmit} className='form-container' noValidate>
+        {isUploading && <CircularProgressWithLabel value={progress} />}
+        <FileUploader setImageUrl={setImageUrl} setProgress={setProgress} setIsUploading={setIsUploading}/>
         <TextField variant='outlined' onChange={e => setTitle(e.target.value)} value={title} className='text-input' label='Company name' /><br />
         <TextField variant='outlined' onChange={e => setDescription(e.target.value)} value={description} className='text-input' label='Description' /><br />
         <TextField variant='outlined' onChange={e => setLocation(e.target.value)} value={location} className='text-input' label='Location' /><br />

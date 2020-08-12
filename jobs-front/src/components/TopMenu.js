@@ -10,11 +10,6 @@ const TopMenu = () => {
   const [anchorEl, setAnchorEl] = useState(null)
   const [menuOpen, setMenuOpen] = useState(false)
 
-  const avatarStyle = {
-    height: '3rem',
-    width: '3rem'
-  }
-
   const handleClick = e => {
     setMenuOpen(true)
     setAnchorEl(e.currentTarget)
@@ -28,8 +23,8 @@ const TopMenu = () => {
   return (
     <>
     <IconButton onClick={handleClick}>
-      {userProfile && <Avatar style={avatarStyle} alt={userProfile.firstName} src={userProfile.avatar} />}
-      {!userProfile && <Skeleton variant='circle' height={'3rem'} width={'3rem'} />}
+      {userProfile && <Avatar alt={userProfile.firstName} src={userProfile.avatar} />}
+      {!userProfile && <Skeleton variant='circle' height={40} width={40} />}
     </IconButton>
     <Menu anchorEl={anchorEl} open={menuOpen} onClose={handleClose}>
       <MenuItem>Edit Profile</MenuItem>

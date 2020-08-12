@@ -21,7 +21,7 @@ const JobsList = ({ posting }) => {
     <>
       <Grid className='grid-container' container spacing={2}>
         {loading && <SkeletonCards />}
-        {!loading && jobs.map((job, index) => <JobCard job={job} />)}
+        {!loading && jobs.map((job, index) => <JobCard key={index} job={job} />)}
       </Grid>
     </>
   )
