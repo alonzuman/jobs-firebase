@@ -19,20 +19,9 @@ import theme from './theme';
 import PrivateRoute from './components/PrivateRoute';
 
 const App = () => {
-  const containerStyle = {
-    position: 'absolute',
-    overflow: 'hidden',
-    width: '100%',
-    height: '100%',
-    borderRadius: 0,
-    padding: 0
-  }
-
   return (
-    // TODO set theme toggle
     <ThemeProvider theme={theme}>
       <AuthProvider>
-        <Container style={containerStyle}>
           <Router>
             <Switch>
               <PrivateRoute exact path='/' component={Home} />
@@ -40,7 +29,6 @@ const App = () => {
               <Route path='/signup' component={SignUp} />
             </Switch>
           </Router>
-        </Container>
       </AuthProvider>
     </ThemeProvider>
   );

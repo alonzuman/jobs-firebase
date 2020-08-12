@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { TextField, Button, Typography, CircularProgress, Stepper, StepButton, Step } from '@material-ui/core'
+import { TextField, Button, Typography, CircularProgress, Stepper, StepButton, Step, Paper } from '@material-ui/core'
 import { signUp } from '../firebase'
 import { Link, Redirect, withRouter } from 'react-router-dom'
 import { AuthContext } from '../contexts/Auth'
@@ -104,13 +104,8 @@ const SignUp = () => {
     handleNext();
   };
 
-  const handleReset = () => {
-    setActiveStep(0);
-    setCompleted({});
-  };
-
   return (
-    <>
+    <Paper className='paper-container-style'>
     <form className='form-container' noValidate>
       <Typography variant='h1'>Sign Up</Typography>
       <br />
@@ -158,7 +153,7 @@ const SignUp = () => {
       <br/>
       <Typography variant='body1'>Not signed up? <Link style={anchorStyle} to='/signin'>Sign in</Link></Typography>
     </form>
-    </>
+    </Paper>
   )
 }
 

@@ -41,8 +41,8 @@ export const getCurrentUser = async (id) => {
   }
 }
 
-export const editUser = (user) => {
-
+export const editUser = async (user, id) => {
+  await db.collection('users').doc(id).set(user)
 }
 
 export const getUsers = async () => {

@@ -17,7 +17,7 @@ const PersonalInformation = ({ setAvatar, firstName, setFirstName, lastName, set
   return (
     <>
       {isUploading && <CircularProgressWithLabel value={progress} />}
-      <FileUploader folder={'avatars'} setImageUrl={setAvatar} setProgress={setProgress} setIsUploading={setIsUploading} />
+      {!isUploading && <FileUploader folder={'avatars'} setImageUrl={setAvatar} setProgress={setProgress} setIsUploading={setIsUploading} />}
       <div style={flexStyle}>
         <TextField variant='outlined' className='text-input' label={`First Name`} value={firstName} onChange={e => setFirstName(e.target.value)} /><br />
         <TextField variant='outlined' className='text-input' label={`Last Name`} value={lastName} onChange={e => setLastName(e.target.value)} /><br />

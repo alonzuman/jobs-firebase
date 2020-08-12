@@ -10,7 +10,9 @@ const CircularProgressWithLabel = (props) => {
     position: 'relative',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    float: 'left',
+    margin: '0 0 1rem 0'
   }
 
   return (

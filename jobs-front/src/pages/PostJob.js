@@ -3,7 +3,6 @@ import { Dialog, TextField, Button, DialogTitle, CircularProgress, IconButton, C
 import CloseIcon from '@material-ui/icons/Close';
 import { postJob } from '../firebase'
 import FileUploader from '../components/FileUploader';
-import { storage } from '../firebase';
 import CircularProgressWithLabel from '../components/CircularProgressWithLabel';
 
 const PostJob = ({ open, onClose }) => {
@@ -19,6 +18,7 @@ const PostJob = ({ open, onClose }) => {
 
   const handleSubmit = e => {
     e.preventDefault()
+    // TODO fix the image url bug
     const job = {
       title,
       description,
@@ -59,7 +59,7 @@ const PostJob = ({ open, onClose }) => {
         <TextField variant='outlined' onChange={e => setLocation(e.target.value)} value={location} className='text-input' label='Location' /><br />
         <TextField variant='outlined' onChange={e => setContact(e.target.value)} value={contact} className='text-input' label='Contact' /><br />
         <TextField variant='outlined' onChange={e => setRequirements(['hi', 'bye', 'guy'])} value={requirements} className='text-input' label='Requirements' /><br />
-        <Button type='submit' color='primary' variant='contained'>{loading ? <CircularProgress color='primary.light' className='small-input' /> : 'Submit'}</Button>
+        <Button className='button' type='submit' color='primary' variant='contained'>{loading ? <CircularProgress color='primary.light' className='small-input' /> : 'Submit'}</Button>
       </form>
     </Dialog>
   )
