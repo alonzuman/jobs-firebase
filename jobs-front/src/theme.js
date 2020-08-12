@@ -6,6 +6,11 @@ const theme = createMuiTheme({
     primary: {
       main: '#7e57c2',
     },
+  },
+  typography: {
+    h1: {
+      fontSize: '2.5rem'
+    }
   }
 })
 

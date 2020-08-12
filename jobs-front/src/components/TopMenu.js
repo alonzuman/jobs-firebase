@@ -1,16 +1,18 @@
-import React from 'react'
-import theme from '../theme'
-import { Box, Avatar, MenuItem, Menu, Switch, IconButton } from '@material-ui/core'
+import React, { useContext } from 'react'
+import { Avatar, MenuItem, Menu, Switch, IconButton } from '@material-ui/core'
+import { Skeleton } from '@material-ui/lab'
 import { useState } from 'react';
 import { signOut } from '../firebase';
+import { AuthContext } from '../contexts/Auth';
 
-const TopMenu = ({ onSignout }) => {
+const TopMenu = () => {
+  const { currentUser, userProfile } = useContext(AuthContext)
   const [anchorEl, setAnchorEl] = useState(null)
   const [menuOpen, setMenuOpen] = useState(false)
 
   const avatarStyle = {
-    height: 32,
-    width: 32
+    height: '3rem',
+    width: '3rem'
   }
 
   const handleClick = e => {
@@ -26,7 +28,8 @@ const TopMenu = ({ onSignout }) => {
   return (
     <>
     <IconButton onClick={handleClick}>
-      <Avatar style={avatarStyle} alt='TODO' src='TODO' />
+      {userProfile && <Avatar style={avatarStyle} alt={userProfile.firstName} src={userProfile.avatar} />}
+      {!userProfile && <Skeleton variant='circle' height={'3rem'} width={'3rem'} />}
     </IconButton>
     <Menu anchorEl={anchorEl} open={menuOpen} onClose={handleClose}>
       <MenuItem>Edit Profile</MenuItem>

@@ -1,15 +1,24 @@
 import React, { useEffect, useState } from 'react'
-import app from '../firebase'
+import app, { getCurrentUser } from '../firebase'
 
 export const AuthContext = React.createContext()
 
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null)
+  const [userProfile, setUserProfile] = useState(null)
 
-  useEffect(() => { app.auth().onAuthStateChanged(setCurrentUser) })
+  const validateUser = async () => {
+    await app.auth().onAuthStateChanged(setCurrentUser)
+    if (currentUser?.uid) {
+      const userData = await getCurrentUser(currentUser.uid)
+      setUserProfile(userData)
+    }
+  }
+
+  useEffect(() => { validateUser() }, [currentUser?.uid])
 
   return (
-    <AuthContext.Provider value={{ currentUser }}>
+    <AuthContext.Provider value={{ currentUser, userProfile }}>
       {children}
     </AuthContext.Provider>
   )

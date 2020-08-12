@@ -38,42 +38,19 @@ const PostJob = ({ open, onClose }) => {
     }
   }
 
-  const inputStyle = {
-    width: '100%'
-  }
-
-  const formStyle = {
-    width: '100%',
-    padding: '1rem'
-  }
-
-  const spinnerStyle = {
-    width: 24,
-    height: 24
-  }
-
-  const headerStyle = {
-    padding: '1rem',
-    display: 'flex'
-  }
-
-  const titleStyle = {
-    padding: '.5rem 1rem'
-  }
-
   return (
     <Dialog open={open} onClose={onClose}>
-      <div style={headerStyle}>
-        <DialogTitle style={titleStyle}>Post a new job</DialogTitle>
+      <div className='header-style'>
+        <DialogTitle className='title-style'>Post a new job</DialogTitle>
         <IconButton onClick={onClose}><CloseIcon /></IconButton>
       </div>
-      <form onSubmit={handleSubmit} style={formStyle} noValidate>
-        <TextField onChange={e => setTitle(e.target.value)} value={title} style={inputStyle} label='Company name' /><br />
-        <TextField onChange={e => setDescription(e.target.value)} value={description} style={inputStyle} label='Description' /><br />
-        <TextField onChange={e => setLocation(e.target.value)} value={location} style={inputStyle} label='Location' /><br />
-        <TextField onChange={e => setContact(e.target.value)} value={contact} style={inputStyle} label='Contact' /><br />
-        <TextField onChange={e => setRequirements(['hi', 'bye', 'guy'])} value={requirements} style={inputStyle} label='Requirements' /><br />
-        <Button type='submit' color='primary' variant='contained'>{loading ? <CircularProgress style={spinnerStyle} /> : 'Submit'}</Button>
+      <form onSubmit={handleSubmit} className='form-container' noValidate>
+        <TextField variant='outlined' onChange={e => setTitle(e.target.value)} value={title} className='text-input' label='Company name' /><br />
+        <TextField variant='outlined' onChange={e => setDescription(e.target.value)} value={description} className='text-input' label='Description' /><br />
+        <TextField variant='outlined' onChange={e => setLocation(e.target.value)} value={location} className='text-input' label='Location' /><br />
+        <TextField variant='outlined' onChange={e => setContact(e.target.value)} value={contact} className='text-input' label='Contact' /><br />
+        <TextField variant='outlined' onChange={e => setRequirements(['hi', 'bye', 'guy'])} value={requirements} className='text-input' label='Requirements' /><br />
+        <Button type='submit' color='primary' variant='contained'>{loading ? <CircularProgress className='small-input' /> : 'Submit'}</Button>
       </form>
     </Dialog>
   )

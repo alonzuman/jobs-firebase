@@ -21,30 +21,26 @@ import PrivateRoute from './components/PrivateRoute';
 const App = () => {
   const containerStyle = {
     position: 'absolute',
+    overflow: 'hidden',
     width: '100%',
     height: '100%',
-    padding: '1rem 0',
-    borderRadius: 0
+    borderRadius: 0,
+    padding: 0
   }
 
   return (
     // TODO set theme toggle
     <ThemeProvider theme={theme}>
       <AuthProvider>
-        <Paper style={containerStyle}>
+        <Container style={containerStyle}>
           <Router>
             <Switch>
-              <Container>
-                <PrivateRoute exact path='/' component={Home} />
-                <PrivateRoute exact path='/post-job' component={PostJob} />
-                <PrivateRoute exact path='/me' component={Me} />
-                <PrivateRoute exact path='/me/edit' component={EditProfile} />
-                <Route path='/signin' component={SignIn} />
-                <Route path='/signup' component={SignUp} />
-              </Container>
+              <PrivateRoute exact path='/' component={Home} />
+              <Route path='/signin' component={SignIn} />
+              <Route path='/signup' component={SignUp} />
             </Switch>
           </Router>
-        </Paper>
+        </Container>
       </AuthProvider>
     </ThemeProvider>
   );

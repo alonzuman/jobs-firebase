@@ -32,6 +32,13 @@ export const signOut = () => {
   app.auth().signOut()
 }
 
+export const getCurrentUser = async (id) => {
+  if (id) {
+    const user = await db.collection('users').doc(id).get()
+    return user.data()
+  }
+}
+
 export const editUser = (user) => {
 
 }

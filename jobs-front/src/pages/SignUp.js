@@ -3,6 +3,7 @@ import { TextField, Button, Typography, CircularProgress } from '@material-ui/co
 import { signUp } from '../firebase'
 import { Link, Redirect, withRouter } from 'react-router-dom'
 import { AuthContext } from '../contexts/Auth'
+import theme from '../theme'
 
 const SignUp = () => {
   const [email, setEmail] = useState('')
@@ -42,38 +43,32 @@ const SignUp = () => {
     }
   }
 
-  const formStyle = {
-    width: '100%'
-  }
-
-  const inputStyle = {
-    width: '100%',
-    margin: '.5rem 0'
-  }
-
   if (currentUser) {
     return <Redirect to='/' />
   }
 
-  const spinnerStyle = {
-    height: 24,
-    width: 24
+  const anchorStyle = {
+    textDecoration: 'none',
+    color: theme.palette.primary.main
   }
 
   return (
     <>
-    {Redirect}
-    <form style={formStyle} noValidate>
-      <TextField style={inputStyle} label={`Email`} value={email} onChange={e => setEmail(e.target.value)} /><br/>
-      <TextField style={inputStyle} type='password' label={`Password`} value={password} onChange={e => setPassword(e.target.value)} /><br/>
-      <TextField style={inputStyle} type='password' label={`Confirm Password`} value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} /><br/>
-      <TextField style={inputStyle} label={`First Name`} value={firstName} onChange={e => setFirstName(e.target.value)} /><br/>
-      <TextField style={inputStyle} label={`Last Name`} value={lastName} onChange={e => setLastName(e.target.value)} /><br/>
-      <TextField style={inputStyle} label={`Bio`} value={bio} onChange={e => setBio(e.target.value)} /><br/>
-      <TextField style={inputStyle} label={`Skills`} value={skills} onChange={e => setSkills(e.target.value)} /><br/>
-      <Button color='primary' variant='contained' onClick={handleSubmit}>{loading ? <CircularProgress style={spinnerStyle}/> : 'Submit'}</Button>
+    <form className='form-container' noValidate>
+      <Typography variant='h1'>Sign Up</Typography>
+      <br />
+      <TextField variant='outlined' className='text-input' label={`Email`} value={email} onChange={e => setEmail(e.target.value)} /><br/>
+      <TextField variant='outlined' className='text-input' type='password' label={`Password`} value={password} onChange={e => setPassword(e.target.value)} /><br/>
+      <TextField variant='outlined' className='text-input' type='password' label={`Confirm Password`} value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} /><br/>
+      <TextField variant='outlined' className='text-input' label={`First Name`} value={firstName} onChange={e => setFirstName(e.target.value)} /><br/>
+      <TextField variant='outlined' className='text-input' label={`Last Name`} value={lastName} onChange={e => setLastName(e.target.value)} /><br/>
+      <TextField variant='outlined' className='text-input' label={`Bio`} value={bio} onChange={e => setBio(e.target.value)} /><br/>
+      <TextField variant='outlined' className='text-input' label={`Skills`} value={skills} onChange={e => setSkills(e.target.value)} /><br/>
+      <Button className='button' color='primary' variant='contained' onClick={handleSubmit}>{loading ? <CircularProgress className='small-spinner' /> : 'Submit'}</Button>
+      <br/>
+      <br/>
+      <Typography variant='body1'>Not signed up? <Link style={anchorStyle} to='/signin'>Sign in</Link></Typography>
     </form>
-    <Typography variant='body1'>Not signed up? <Link to='/signin'>Sign in</Link></Typography>
     </>
   )
 }

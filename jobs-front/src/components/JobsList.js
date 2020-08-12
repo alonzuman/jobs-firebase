@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { getJobs } from '../firebase'
-import { CircularProgress, Grid } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 import JobCard from './JobCard'
+import SkeletonCards from './SkeletonCards'
 
 const JobsList = ({ posting }) => {
   const [jobs, setJobs] = useState([])
@@ -17,10 +18,12 @@ const JobsList = ({ posting }) => {
   useEffect(() => { fetchJobs() }, [posting])
 
   return (
-    <Grid container spacing={2}>
-      {loading && <CircularProgress />}
-      {!loading && jobs.map((job, index) => <Grid key={index} xs={12} item><JobCard job={job} /></Grid>)}
-    </Grid>
+    <>
+      <Grid className='grid-container' container spacing={2}>
+        {loading && <SkeletonCards />}
+        {!loading && jobs.map((job, index) => <JobCard job={job} />)}
+      </Grid>
+    </>
   )
 }
 

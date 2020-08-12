@@ -1,8 +1,9 @@
 import React, { useState, useContext } from 'react'
-import { TextField, Button, Typography, CircularProgress } from '@material-ui/core'
+import { TextField, Button, Typography, CircularProgress, Paper } from '@material-ui/core'
 import { signIn } from '../firebase'
 import { useHistory, Link, withRouter, Redirect } from 'react-router-dom'
 import { AuthContext } from '../contexts/Auth'
+import theme from '../theme'
 
 const SignIn = () => {
   const [email, setEmail] = useState('')
@@ -24,18 +25,9 @@ const SignIn = () => {
     }
   }
 
-  const formStyle = {
-    width: '100%'
-  }
-
-  const inputStyle = {
-    width: '100%',
-    margin: '.5rem 0'
-  }
-
-  const spinnerStyle = {
-    width: 24,
-    height: 24
+  const anchorStyle = {
+    textDecoration: 'none',
+    color: theme.palette.primary.main
   }
 
   if (currentUser) {
@@ -44,13 +36,17 @@ const SignIn = () => {
 
   return (
     <>
-      <form style={formStyle} noValidate>
-        <TextField style={inputStyle} label={`Email`} value={email} onChange={e => setEmail(e.target.value)} /><br />
-        <TextField style={inputStyle} type='password' label={`Password`} value={password} onChange={e => setPassword(e.target.value)} /><br />
-        <Button color='primary' variant='contained' onClick={handleSubmit}>{loading ? <CircularProgress style={spinnerStyle}/> : 'Submit' }</Button>
+      <form className='form-container' noValidate>
+        <Typography variant='h1'>Sign Up</Typography>
+        <br />
+        <TextField variant='outlined' className='text-input' label={`Email`} value={email} onChange={e => setEmail(e.target.value)} /><br />
+        <TextField variant='outlined' className='text-input' type='password' label={`Password`} value={password} onChange={e => setPassword(e.target.value)} /><br />
+        <Button className='button' color='primary' variant='contained' onClick={handleSubmit}>{loading ? <CircularProgress className='small-spinner'/> : 'Submit' }</Button>
+        <br />
+        <br />
+        <Typography variant='body1'>Not signed up? <Link style={anchorStyle} to='/signup'>Sign up</Link></Typography>
       </form>
       <br />
-      <Typography variant='body1'>Not signed up? <Link to='/signup'>Sign up</Link></Typography>
     </>
   )
 }
