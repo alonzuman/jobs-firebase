@@ -17,9 +17,9 @@ const UsersList = () => {
   useEffect(() => { fetchUsers() }, [])
 
   return (
-    <Grid container>
+    <Grid container spacing={2}>
       {loading && <CircularProgress />}
-      {!loading && users.map((user, index) => <Grid key={index} sm={12} item><UserCard key={index} user={user} /></Grid>)}
+      {!loading && users.map((user, index) => <Grid key={index} xs={12} item><UserCard key={index} user={user} /></Grid>)}
     </Grid>
   )
 }

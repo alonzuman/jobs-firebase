@@ -17,9 +17,9 @@ const JobsList = ({ posting }) => {
   useEffect(() => { fetchJobs() }, [posting])
 
   return (
-    <Grid container>
+    <Grid container spacing={2}>
       {loading && <CircularProgress />}
-      {!loading && jobs.map((job, index) => <Grid key={index} sm={12} item><JobCard job={job} /></Grid>)}
+      {!loading && jobs.map((job, index) => <Grid key={index} xs={12} item><JobCard job={job} /></Grid>)}
     </Grid>
   )
 }
