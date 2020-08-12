@@ -6,7 +6,7 @@ const SkeletonCards = () => {
 
   return (
     <>
-      {skeletons.map(skeleton => <SkeletonCard />)}
+      {skeletons.map((skeleton, index) => <SkeletonCard key={index} />)}
     </>
   )
 }

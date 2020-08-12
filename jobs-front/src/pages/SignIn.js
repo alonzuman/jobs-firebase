@@ -37,11 +37,11 @@ const SignIn = () => {
   return (
     <>
       <form className='form-container' noValidate>
-        <Typography variant='h1'>Sign Up</Typography>
+        <Typography variant='h1'>Sign In</Typography>
         <br />
         <TextField variant='outlined' className='text-input' label={`Email`} value={email} onChange={e => setEmail(e.target.value)} /><br />
         <TextField variant='outlined' className='text-input' type='password' label={`Password`} value={password} onChange={e => setPassword(e.target.value)} /><br />
-        <Button className='button' color='primary' variant='contained' onClick={handleSubmit}>{loading ? <CircularProgress className='small-spinner'/> : 'Submit' }</Button>
+        <Button className='button' color='primary' variant='contained' onClick={handleSubmit}>{loading ? <CircularProgress color='primary.light' className='small-spinner'/> : 'Submit' }</Button>
         <br />
         <br />
         <Typography variant='body1'>Not signed up? <Link style={anchorStyle} to='/signup'>Sign up</Link></Typography>
