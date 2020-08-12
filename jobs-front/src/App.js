@@ -10,9 +10,6 @@ import { Paper, Container, ThemeProvider } from '@material-ui/core'
 import Home from './pages/Home'
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
-import PostJob from './pages/PostJob';
-import EditProfile from './pages/EditProfile';
-import Me from './pages/Me';
 import theme from './theme';
 
 // Components
