@@ -56,7 +56,7 @@ export const getUsers = async () => {
 export const getJobs = async (job) => {
   const snapshot = await db.collection('jobs').get()
   let jobs = []
-  snapshot.forEach(doc => jobs.push(doc.data()))
+  snapshot.forEach(doc => jobs.push({...doc.data(), id: doc.id }))
   return jobs
 }
 

@@ -4,8 +4,10 @@ import { signIn } from '../firebase'
 import { useHistory, Link, withRouter, Redirect } from 'react-router-dom'
 import { AuthContext } from '../contexts/Auth'
 import theme from '../theme'
+import { AlertContext } from '../contexts/Alert'
 
 const SignIn = () => {
+  const { setAlertFunction } = useContext(AlertContext)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
@@ -17,11 +19,21 @@ const SignIn = () => {
     const user = { email, password }
     try {
       await signIn(user)
+      setAlertFunction({
+        isOn: true,
+        msg: 'Welcome!',
+        type: 'success'
+      })
       setLoading(false)
     } catch (error) {
       console.log(error)
+      // TODO switch case on error type
+      setAlertFunction({
+        isOn: true,
+        msg: 'Failed to log in, please try again',
+        type: 'error'
+      })
       setLoading(false)
-      // TODO set alert
     }
   }
 

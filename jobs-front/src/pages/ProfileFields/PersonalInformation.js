@@ -3,7 +3,7 @@ import { TextField } from '@material-ui/core'
 import FileUploader from '../../components/FileUploader'
 import CircularProgressWithLabel from '../../components/CircularProgressWithLabel'
 
-const PersonalInformation = ({ setAvatar, firstName, setFirstName, lastName, setLastName, bio, setBio, skills, setSkills, phone, setPhone }) => {
+const PersonalInformation = ({ email, setAvatar, firstName, setFirstName, lastName, setLastName, bio, setBio, skills, setSkills, phone, setPhone }) => {
   const [progress, setProgress] = useState(0)
   const [isUploading, setIsUploading] = useState(false)
 
@@ -17,7 +17,14 @@ const PersonalInformation = ({ setAvatar, firstName, setFirstName, lastName, set
   return (
     <>
       {isUploading && <CircularProgressWithLabel value={progress} />}
-      {!isUploading && <FileUploader folder={'avatars'} setImageUrl={setAvatar} setProgress={setProgress} setIsUploading={setIsUploading} />}
+      {!isUploading &&
+      <FileUploader
+        folder={'avatars'}
+        fileName={`${email}'s avatar`}
+        setImageUrl={setAvatar}
+        setProgress={setProgress}
+        setIsUploading={setIsUploading}
+      />}
       <div style={flexStyle}>
         <TextField variant='outlined' className='text-input' label={`First Name`} value={firstName} onChange={e => setFirstName(e.target.value)} /><br />
         <TextField variant='outlined' className='text-input' label={`Last Name`} value={lastName} onChange={e => setLastName(e.target.value)} /><br />

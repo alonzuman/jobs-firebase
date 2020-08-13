@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import JobsList from '../components/JobsList'
 
 // Components
@@ -12,7 +12,6 @@ import { Button, IconButton, Box, Typography, Paper, Tabs, Tab, Fab } from '@mat
 import AddIcon from '@material-ui/icons/Add'
 import UsersList from '../components/UsersList'
 import theme from '../theme'
-import CustomAlert from '../components/CustomAlert'
 
 const Home = () => {
   const [posting, setPosting] = useState(false)
@@ -31,7 +30,6 @@ const Home = () => {
   return (
     <>
       <TopMenu />
-      <CustomAlert />
       <Fab onClick={() => setPosting(true)} style={addButtonStyle} color="primary" aria-label="add">
         <AddIcon />
       </Fab>

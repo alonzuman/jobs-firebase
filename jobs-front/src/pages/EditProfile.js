@@ -3,12 +3,12 @@ import PersonalInformation from './ProfileFields/PersonalInformation'
 import { AuthContext } from '../contexts/Auth'
 import { Button, CircularProgress } from '@material-ui/core'
 import { editUser } from '../firebase'
-import { alertReducer } from '../reducers/Alert'
+import { AlertContext } from '../contexts/Alert'
 
 const EditProfile = ({ onClose }) => {
-  const [state, dispatch] = useReducer(alertReducer)
   const [loading, setLoading] = useState(false)
-  const { userProfile, currentUser } = useContext(AuthContext)
+  const { userProfile, setUserProfile, currentUser } = useContext(AuthContext)
+  const { setAlertFunction } = useContext(AlertContext)
   const { uid } = currentUser
   const [firstName, setFirstName] = useState(userProfile.firstName)
   const [lastName, setLastName] = useState(userProfile.lastName)
@@ -26,41 +26,28 @@ const EditProfile = ({ onClose }) => {
 
     try {
       await editUser(user, uid)
+      setUserProfile(user)
+      setAlertFunction({
+        isOn: true,
+        msg: 'Profile updated successfully!',
+        type: 'success'
+      })
       setLoading(false)
       onClose(true)
-      dispatch({
-        type: 'SET_ALERT',
-        payload: {
-          msg: 'Edited successfully!',
-          type: 'success'
-        }
-      })
-      setTimeout(() => {
-        dispatch({
-          type: 'REMOVE_ALERT'
-        })
-      }, [3000])
     } catch (error) {
       console.log(error)
-      dispatch({
-        type: 'SET_ALERT',
-        payload: {
-          msg: 'Failed to update, please try again',
-          type: 'danger'
-        }
+      setAlertFunction({
+        isOn: true,
+        msg: 'Failed to update profile, please try again',
+        type: 'error'
       })
-      setTimeout(() => {
-        dispatch({
-          type: 'REMOVE_ALERT'
-        })
-      }, [3000])
-      setLoading(false)
     }
   }
 
   return (
     <div className='form-container'>
       <PersonalInformation
+        email={currentUser.email}
         firstName={firstName}
         setFirstName={setFirstName}
         lastName={lastName}
@@ -74,7 +61,7 @@ const EditProfile = ({ onClose }) => {
         setAvatar={setAvatar}
       />
       <Button className='button' onClick={e => handleSubmit(e)} variant='contained' color='primary'>
-        {loading ? <CircularProgress className='small-spinner' /> : 'Submit'}
+        {loading ? <CircularProgress color='default' className='small-spinner' /> : 'Submit'}
       </Button>
     </div>
   )

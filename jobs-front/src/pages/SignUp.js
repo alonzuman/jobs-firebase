@@ -130,6 +130,7 @@ const SignUp = () => {
       />}
       {activeStep === 1 &&
       <PersonalInformation
+        email={email}
         firstName={firstName}
         setFirstName={setFirstName}
         lastName={lastName}

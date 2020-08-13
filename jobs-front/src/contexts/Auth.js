@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => { validateUser() }, [currentUser?.uid])
 
   return (
-    <AuthContext.Provider value={{ currentUser, userProfile }}>
+    <AuthContext.Provider value={{ currentUser, userProfile, setUserProfile }}>
       {children}
     </AuthContext.Provider>
   )
