@@ -3,7 +3,6 @@ import { Redirect, Route } from 'react-router-dom'
 import { AuthContext } from '../contexts/Auth'
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  // TODO validate token ffs how to do it?
   const { currentUser } = useContext(AuthContext)
 
   return (

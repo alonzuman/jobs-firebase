@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { AuthProvider } from './contexts/Auth';
@@ -14,6 +14,7 @@ import theme from './theme';
 
 // Components
 import PrivateRoute from './components/PrivateRoute';
+
 
 const App = () => {
   return (

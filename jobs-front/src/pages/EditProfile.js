@@ -1,10 +1,12 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useReducer } from 'react'
 import PersonalInformation from './ProfileFields/PersonalInformation'
 import { AuthContext } from '../contexts/Auth'
 import { Button, CircularProgress } from '@material-ui/core'
 import { editUser } from '../firebase'
+import { alertReducer } from '../reducers/Alert'
 
 const EditProfile = ({ onClose }) => {
+  const [state, dispatch] = useReducer(alertReducer)
   const [loading, setLoading] = useState(false)
   const { userProfile, currentUser } = useContext(AuthContext)
   const { uid } = currentUser
@@ -26,9 +28,32 @@ const EditProfile = ({ onClose }) => {
       await editUser(user, uid)
       setLoading(false)
       onClose(true)
+      dispatch({
+        type: 'SET_ALERT',
+        payload: {
+          msg: 'Edited successfully!',
+          type: 'success'
+        }
+      })
+      setTimeout(() => {
+        dispatch({
+          type: 'REMOVE_ALERT'
+        })
+      }, [3000])
     } catch (error) {
       console.log(error)
-      // TODO set alert
+      dispatch({
+        type: 'SET_ALERT',
+        payload: {
+          msg: 'Failed to update, please try again',
+          type: 'danger'
+        }
+      })
+      setTimeout(() => {
+        dispatch({
+          type: 'REMOVE_ALERT'
+        })
+      }, [3000])
       setLoading(false)
     }
   }
